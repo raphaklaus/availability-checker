@@ -1,9 +1,7 @@
 import ScooterAvailabilityHistory from '../models/scooterAvailabilityModelHistory.js'
 
-export const getLatest = async () => {
-  return ScooterAvailabilityHistory.findOne({}, { created_at: -1 }).populate({
-    path: 'data'
-  })
+export const isEmpty = async () => {
+  return ScooterAvailabilityHistory.count() === 0
 }
 
 export const insert = async (data) => {
@@ -12,6 +10,18 @@ export const insert = async (data) => {
   })
 
   return document.save()
+}
+
+export const findInHistory = async (scooterSystemId) => {
+  const history = await ScooterAvailabilityHistory.findOne({
+    'data.systemId': scooterSystemId
+  }, {
+    created_at: -1
+  }).populate({
+    path: 'data'
+  })
+
+  return history.data.find(x => x.systemId === scooterSystemId)
 }
 
 const mapIds = (data) => {
