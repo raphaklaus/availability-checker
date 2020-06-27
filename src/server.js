@@ -4,7 +4,7 @@ import {
   httpService,
   mongoService,
   availabilityService,
-  distanceService
+  verificationService
 } from './services/factoryService.js'
 
 const agenda = new Agenda({
@@ -19,10 +19,11 @@ const agenda = new Agenda({
 agenda.define('wow', async job => {
   try {
     const currentAvailability = await httpService.list()
-    const latestAvailability = await availabilityService.getLatest()
 
-    if (latestAvailability.data?.length > 0) {
-      // TODO: run verificationService method
+    if (await availabilityService.isEmpty()) {
+      const scooters = verificationService.getRecentRodeScooters(currentAvailability)
+      // TODO: Insert Many in the collection
+      console.log(scooters)
     }
 
     // TODO: Check schema before inserting
