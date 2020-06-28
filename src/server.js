@@ -17,23 +17,15 @@ const agenda = new Agenda({
   }
 })
 
-agenda.define('wow', async job => {
+agenda.define('check available scooters', async job => {
   try {
-    console.log('hmmmm')
     const currentAvailability = await httpService.list()
 
     if (!(await scooterService.isEmpty())) {
-      console.log('HERE!')
-
       const scooters = await verificationService.getRecentRodeScooters(currentAvailability)
-      console.log('FINISHED')
-
-      console.log(scooters.length)
-
       await rideService.insertMany(scooters)
     }
 
-    // TODO: Check schema before inserting
     await scooterService.insert(currentAvailability)
   } catch (error) {
     console.error(error)
@@ -42,8 +34,7 @@ agenda.define('wow', async job => {
 
 mongoService.connect()
   .then(() => agenda.start())
-  .then(() => agenda.every(process.env.SCHEDULE, 'wow'))
+  .then(() => agenda.every(process.env.SCHEDULE, 'check available scooters'))
   .catch(error => {
-    console.log('aaaa')
     console.error(error)
   })
