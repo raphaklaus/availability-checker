@@ -1,4 +1,4 @@
-import rideModel from '../models/rideModel.js'
+import { rideModel } from '../models/modelFactory.js'
 
 export const insertMany = async (data) => {
   return rideModel.insertMany(

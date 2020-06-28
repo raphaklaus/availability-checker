@@ -1,4 +1,4 @@
-import scooterModel from '../models/scooterModel.js'
+import { scooterModel } from '../models/modelFactory.js'
 
 export const isEmpty = async () => {
   return await scooterModel.countDocuments() === 0
