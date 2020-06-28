@@ -2,11 +2,14 @@ import Agenda from 'agenda'
 
 import {
   httpService,
-  mongoService,
+  mongooseService,
   verificationService,
   scooterService,
-  rideService
+  rideService,
+  logService
 } from './services/factoryService.js'
+
+logService.configure()
 
 const agenda = new Agenda({
   db: {
@@ -17,24 +20,27 @@ const agenda = new Agenda({
   }
 })
 
-agenda.define('check available scooters', async job => {
+agenda.define('check for scooters recently on a ride', async job => {
   try {
+    console.info('Checking for rides...')
     const currentAvailability = await httpService.list()
 
     if (!(await scooterService.isEmpty())) {
-      const scooters = await verificationService.getRecentRodeScooters(currentAvailability)
-      await rideService.insertMany(scooters)
+      const rodeScooters = await verificationService.getRecentRodeScooters(currentAvailability)
+      console.info(`Scooters ridden: ${rodeScooters.length}`)
+      await rideService.insertMany(rodeScooters)
     }
 
     await scooterService.insert(currentAvailability)
+    console.info('Finished!')
   } catch (error) {
     console.error(error)
   }
 })
 
-mongoService.connect()
+mongooseService.connect()
   .then(() => agenda.start())
-  .then(() => agenda.every(process.env.SCHEDULE, 'check available scooters'))
+  .then(() => agenda.every(process.env.SCHEDULE, 'check for scooters recently on a ride'))
   .catch(error => {
     console.error(error)
   })
