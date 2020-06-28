@@ -3,8 +3,9 @@ import Agenda from 'agenda'
 import {
   httpService,
   mongoService,
-  availabilityService,
-  verificationService
+  verificationService,
+  scooterService,
+  rideService
 } from './services/factoryService.js'
 
 const agenda = new Agenda({
@@ -18,16 +19,22 @@ const agenda = new Agenda({
 
 agenda.define('wow', async job => {
   try {
+    console.log('hmmmm')
     const currentAvailability = await httpService.list()
 
-    if (await availabilityService.isEmpty()) {
-      const scooters = verificationService.getRecentRodeScooters(currentAvailability)
-      // TODO: Insert Many in the collection
-      console.log(scooters)
+    if (!(await scooterService.isEmpty())) {
+      console.log('HERE!')
+
+      const scooters = await verificationService.getRecentRodeScooters(currentAvailability)
+      console.log('FINISHED')
+
+      console.log(scooters.length)
+
+      await rideService.insertMany(scooters)
     }
 
     // TODO: Check schema before inserting
-    availabilityService.insert(currentAvailability)
+    await scooterService.insert(currentAvailability)
   } catch (error) {
     console.error(error)
   }
