@@ -1,4 +1,4 @@
-import { distanceService, scooterService } from './factoryService.js'
+import { distanceService, scooterService } from './serviceFactory.js'
 
 export const getRecentRodeScooters = async (currentAvailability) => {
   const scooters = await scooterService.list()

@@ -7,7 +7,7 @@ import {
   scooterService,
   rideService,
   logService
-} from './services/factoryService.js'
+} from './services/serviceFactory.js'
 
 logService.configure()
 

@@ -1,5 +1,5 @@
-import * as scooterModel from './scooterModel.js'
-import * as rideModel from './rideModel.js'
+import scooterModel from './scooterModel.js'
+import rideModel from './rideModel.js'
 
 export {
   scooterModel,
