@@ -1,5 +1,7 @@
 # Availability Checker
 
+![Node.js CI](https://github.com/raphaklaus/availability-checker/workflows/Node.js%20CI/badge.svg?event=push)
+
 This repo aims on implement the Availability Scooter Checker project. ;)
 
 Few instructions below.
