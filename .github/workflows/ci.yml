@@ -16,3 +16,6 @@ jobs:
           npm install
           npm run lint
           npm test
+        env:
+          AUTH_KEY: ${{ secrets.AUTH_KEY }}
+          REQUEST_URL: ${{ secrets.REQUEST_URL }}
