@@ -6,7 +6,7 @@
   "main": "scheduler.js",
   "scripts": {
     "start": "env-cmd node --experimental-modules src/scheduler.js",
-    "test": "env-cmd --silent mocha",
+    "test": "env-cmd --silent mocha test/integration test/unit",
     "lint": "standard"
   },
   "author": "Raphael D. Pinheiro <raphaklaus@gmail.com>",

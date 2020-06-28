@@ -1,7 +1,7 @@
 import assert from 'assert'
-import { validateSchema } from './utils.js'
+import { validateSchema } from '../support/utils.js'
 import schema from './scooterAvailabilitySchema.js'
-import { httpService } from '../src/services/serviceFactory.js'
+import { httpService } from '../../src/services/serviceFactory.js'
 
 describe('Get scooters', function () {
   before(async function () {

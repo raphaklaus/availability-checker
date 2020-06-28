@@ -1,7 +1,7 @@
 import assert from 'assert'
 import {
   is60MetersApart
-} from '../src/services/distanceService.js'
+} from '../../src/services/distanceService.js'
 
 describe('Distance Service', () => {
   it('should not detect that 2 points are separated by 60 meters or more', () => {
