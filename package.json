@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "server.js",
+  "main": "scheduler.js",
   "scripts": {
-    "start": "env-cmd node --experimental-modules src/server.js",
+    "start": "env-cmd node --experimental-modules src/scheduler.js",
     "test": "mocha",
     "lint": "standard"
   },
