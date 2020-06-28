@@ -8,8 +8,6 @@ export const connect = async () => {
       useUnifiedTopology: true
     })
   } catch (error) {
-    console.log('failed')
-
     console.error(error)
   }
 }
